@@ -12,6 +12,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.Locale
 
 const val SETTINGS_PACKAGE = "com.android.settings"
 const val MODEL_PACKAGE = "ru.netology.testing.uiautomator"
@@ -119,7 +120,15 @@ class ChangeTextTest {
         device.findObject(By.res(packageName, "buttonChange")).click()
 
         val result = device.findObject(By.res(packageName, "textToBeChanged")).text
-        assertEquals(result, startText)
+        println("Resulting text: $result")
+
+        val expectedText = if (Locale.getDefault().language == "ru") {
+            "Привет, UiAutomator!"
+        } else {
+            "Hello UiAutomator!"
+        }
+
+        assertEquals(result, expectedText)
     }
 
     @Test
@@ -136,5 +145,3 @@ class ChangeTextTest {
         assertEquals(result, testText)
     }
 }
-
-
